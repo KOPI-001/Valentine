@@ -16,7 +16,8 @@
     font-family: Arial, sans-serif;
   }
 
-  .hearts-bg {
+  /* Striped background */
+  .stripes {
     position: fixed;
     inset: 0;
     background-image: repeating-linear-gradient(
@@ -29,9 +30,27 @@
     z-index: 1;
   }
 
+  /* Nicoco text confetti */
+  .nicoco-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0.15;
+    font-size: 22px;
+    font-weight: bold;
+    color: #ff4d6d;
+    transform: rotate(-20deg);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 40px;
+    align-content: center;
+    justify-items: center;
+  }
+
   .container {
     text-align: center;
-    z-index: 2;
+    z-index: 3;
   }
 
   .title {
@@ -112,7 +131,7 @@
     text-align: center;
   }
 
-  /* CONFETTI HEARTS */
+  /* Falling heart confetti */
   .confetti-heart {
     position: fixed;
     top: -10px;
@@ -133,7 +152,13 @@
 
 <body>
 
-<div class="hearts-bg"></div>
+<div class="stripes"></div>
+
+<div class="nicoco-bg">
+  <span>Nicoco</span><span>Nicoco</span><span>Nicoco</span><span>Nicoco</span>
+  <span>Nicoco</span><span>Nicoco</span><span>Nicoco</span><span>Nicoco</span>
+  <span>Nicoco</span><span>Nicoco</span><span>Nicoco</span><span>Nicoco</span>
+</div>
 
 <div class="container">
   <div class="title">❤️❓</div>
@@ -147,7 +172,7 @@
 
     Long distance isn’t always easy, but what we have is solid and worth it. I really appreciate you and the way we choose each other, even when it takes effort.<br><br>
 
-    Valentine's Day is coming up, and there's no one else I want to celebrate it with. So, will you be my valentine now and forever?❤️<br>
+    Valentine's Day is coming up, and there's no one else I want to celebrate it with. So my Nicoco, will you be my valentine now and forever?❤️<br>
 
     <button class="yes-btn" onclick="celebrate()">YES 💖</button>
   </div>
@@ -170,7 +195,6 @@
   function celebrate() {
     document.getElementById("letter").innerHTML =
       "<div class='celebrate'>💖 Happy Valentine’s Day 💖<br>Forever us.</div>";
-
     startConfetti();
   }
 
@@ -188,11 +212,10 @@
     heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
     document.body.appendChild(heart);
 
-    setTimeout(() => {
-      heart.remove();
-    }, 5000);
+    setTimeout(() => heart.remove(), 5000);
   }
 </script>
 
 </body>
 </html>
+
