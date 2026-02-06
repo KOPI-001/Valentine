@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For You ❤️</title>
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ffdde1;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+  }
+
+  .hearts-bg {
+    position: fixed;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      45deg,
+      rgba(255,77,109,0.15) 0,
+      rgba(255,77,109,0.15) 10px,
+      transparent 10px,
+      transparent 20px
+    );
+    z-index: 1;
+  }
+
+  .container {
+    text-align: center;
+    z-index: 2;
+  }
+
+  .title {
+    font-size: 60px;
+    margin-bottom: 25px;
+  }
+
+  .envelope {
+    width: 220px;
+    height: 140px;
+    background: #fff;
+    position: relative;
+    margin: auto;
+    cursor: pointer;
+    border-radius: 6px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    transition: transform 0.6s;
+  }
+
+  .envelope::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-left: 110px solid transparent;
+    border-right: 110px solid transparent;
+    border-top: 70px solid #ff4d6d;
+    transform-origin: top;
+    transition: transform 0.6s;
+  }
+
+  .envelope.open {
+    transform: scale(0.9);
+  }
+
+  .envelope.open::before {
+    transform: rotateX(180deg);
+  }
+
+  .letter {
+    display: none;
+    max-width: 360px;
+    background: #fff;
+    padding: 22px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    animation: fadeIn 1s ease forwards;
+    line-height: 1.6;
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+
+  .yes-btn {
+    margin-top: 20px;
+    padding: 12px 26px;
+    font-size: 18px;
+    border: none;
+    border-radius: 30px;
+    background: #ff4d6d;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(255,77,109,0.7);
+    animation: pulse 1.5s infinite;
+  }
+
+  @keyframes pulse {
+    0% {transform: scale(1);}
+    50% {transform: scale(1.08);}
+    100% {transform: scale(1);}
+  }
+
+  .celebrate {
+    font-size: 28px;
+    color: #ff4d6d;
+    text-align: center;
+  }
+
+  /* CONFETTI HEARTS */
+  .confetti-heart {
+    position: fixed;
+    top: -10px;
+    font-size: 24px;
+    animation: fall linear forwards;
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  @keyframes fall {
+    to {
+      transform: translateY(110vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="hearts-bg"></div>
+
+<div class="container">
+  <div class="title">❤️❓</div>
+
+  <div class="envelope" onclick="openEnvelope(this)"></div>
+
+  <div class="letter" id="letter">
+    Hey princess❤️,<br><br>
+
+    Lately I’ve realized I just keep wanting you more and more. You’re already such a big part of my life, my day, my thoughts, my routine and that hasn’t changed, it’s only gotten deeper.<br><br>
+
+    Long distance isn’t always easy, but what we have is solid and worth it. I really appreciate you and the way we choose each other, even when it takes effort.<br><br>
+
+    Valentine's Day is coming up, and there's no one else I want to celebrate it with. So, will you be my valentine now and forever?❤️<br>
+
+    <button class="yes-btn" onclick="celebrate()">YES 💖</button>
+  </div>
+</div>
+
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/audio/2023/02/14/audio_4a7a5db6f0.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  function openEnvelope(el) {
+    el.classList.add("open");
+    document.getElementById("music").play();
+    setTimeout(() => {
+      el.style.display = "none";
+      document.getElementById("letter").style.display = "block";
+    }, 700);
+  }
+
+  function celebrate() {
+    document.getElementById("letter").innerHTML =
+      "<div class='celebrate'>💖 Happy Valentine’s Day 💖<br>Forever us.</div>";
+
+    startConfetti();
+  }
+
+  function startConfetti() {
+    for (let i = 0; i < 40; i++) {
+      createHeart();
+    }
+  }
+
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "confetti-heart";
+    heart.textContent = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 5000);
+  }
+</script>
+
+</body>
+</html>
